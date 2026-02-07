@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Context Patterns — The discipline of designing what AI knows</title>
+  <meta name="description" content="Patterns, principles, and tools for context engineering. The emerging discipline of designing what information AI systems work with.">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --border: #262626;
+      --text: #e5e5e5;
+      --muted: #a3a3a3;
+      --accent: #3b82f6;
+      --accent-dim: #1e3a5f;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    header {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .stat-bar {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    section {
+      padding: 48px 0;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .patterns {
+      display: grid;
+      gap: 16px;
+    }
+
+    .pattern {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .pattern h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .pattern p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .pattern .source {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-section p {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .links a.primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .links a.primary:hover {
+      background: #2563eb;
+    }
+
+    .links a.secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .links a.secondary:hover {
+      border-color: var(--muted);
+    }
+
+    .quote {
+      border-left: 3px solid var(--accent-dim);
+      padding: 16px 24px;
+      margin: 32px 0;
+      background: var(--surface);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .quote p {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .quote .author {
+      margin-top: 8px;
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 48px 0 40px; }
+      h1 { font-size: 1.8rem; }
+      .stat-bar { gap: 24px; }
+      .stat-number { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Context Patterns</h1>
+      <p class="subtitle">The emerging discipline of designing what information AI systems work with - and how it's structured.</p>
+
+      <div class="stat-bar">
+        <div class="stat">
+          <div class="stat-number">+10.6%</div>
+          <div class="stat-label">Agent benchmark improvement<br>with better context (Stanford/ACE)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">65%</div>
+          <div class="stat-label">Fewer errors with<br>architectural context (Microsoft)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">11/12</div>
+          <div class="stat-label">Models drop below 50%<br>at 32k tokens (NoLiMa)</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="quote">
+      <p>"Context engineering is the delicate art and science of filling the context window with just the right information for the next step."</p>
+      <div class="author">Andrej Karpathy</div>
+    </div>
+
+    <section>
+      <h2>Emerging Patterns</h2>
+      <div class="patterns">
+        <div class="pattern">
+          <h3>The Pyramid</h3>
+          <p>Start with general background, progressively add specific details. Give the model altitude before asking it to land. Mirrors how experts brief each other - context first, task second.</p>
+          <div class="source">Anthropic — Effective Context Engineering for AI Agents</div>
+        </div>
+
+        <div class="pattern">
+          <h3>Select, Don't Dump</h3>
+          <p>The smallest set of high-signal tokens that maximize the desired outcome. 11 of 12 models drop below 50% performance at 32k tokens. More context isn't better context. Surgical selection beats comprehensive inclusion.</p>
+          <div class="source">NoLiMa Benchmark, Chroma Research</div>
+        </div>
+
+        <div class="pattern">
+          <h3>Isolate</h3>
+          <p>Give sub-agents their own focused contexts instead of sharing one massive window. Anthropic's multi-agent system uses 15x more tokens total but gets better results - because each agent sees only what it needs.</p>
+          <div class="source">Anthropic — Multi-Agent Research System</div>
+        </div>
+
+        <div class="pattern">
+          <h3>Compress & Restart</h3>
+          <p>When conversations grow long, summarize what matters and start fresh. Context quality degrades past 85% window capacity. Compaction beats continuation. Treat context like a cache, not a log.</p>
+          <div class="source">LangChain — Context Engineering for Agents</div>
+        </div>
+
+        <div class="pattern">
+          <h3>Write Outside the Window</h3>
+          <p>Persist important context to external storage - scratchpads, memory files, knowledge bases. The context window is working memory, not long-term memory. What matters should survive beyond a single session.</p>
+          <div class="source">LangChain, Letta (MemGPT)</div>
+        </div>
+
+        <div class="pattern">
+          <h3>Progressive Disclosure</h3>
+          <p>Don't pre-load everything. Maintain lightweight identifiers and load full data on demand at runtime. Let the model discover what it needs through exploration, like a developer navigating a codebase.</p>
+          <div class="source">Anthropic — Advanced Retrieval Techniques</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Tools</h2>
+      <div class="patterns">
+        <div class="pattern">
+          <h3>Context Lens</h3>
+          <p>See what your AI actually sees. A framework-agnostic proxy that intercepts LLM API calls and visualizes context window composition in real time. Works with Claude, GPT, and any tool that calls an LLM API.</p>
+          <div class="source"><a href="https://github.com/larsderidder/context-lens" style="color: var(--accent); text-decoration: none;">github.com/larsderidder/context-lens</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <p>This space is being built. Context engineering is the skill that determines whether AI systems work in production. Follow the work.</p>
+      <div class="links">
+        <a href="https://github.com/larsderidder/context-lens" class="primary">Context Lens on GitHub</a>
+        <a href="https://linkedin.com/in/larsderidder" class="secondary">LinkedIn</a>
+        <a href="https://x.com/theredbeard_io" class="secondary">X / Twitter</a>
+      </div>
+    </section>
+
+    <footer>
+      contextpatterns.com — Lars de Ridder
+    </footer>
+  </div>
+</body>
+</html>
