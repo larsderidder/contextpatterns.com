@@ -261,6 +261,12 @@
           <p>Don't pre-load everything. Maintain lightweight identifiers and load full data on demand at runtime. Let the model discover what it needs through exploration, like a developer navigating a codebase.</p>
           <div class="source">Anthropic — Advanced Retrieval Techniques</div>
         </div>
+
+        <div class="pattern">
+          <h3>Recursive Delegation</h3>
+          <p>Give the agent a code environment to programmatically manipulate its own context, and let it spawn child agents with controlled sub-contexts. Instead of stuffing 10M tokens into one window, the parent splits, delegates, and aggregates. Context becomes a tree, not a monolith.</p>
+          <div class="source"><a href="https://arxiv.org/abs/2512.24601" style="color: var(--accent); text-decoration: none;">Zhang et al. (2025) — Recursive Language Models</a></div>
+        </div>
       </div>
     </section>
 
