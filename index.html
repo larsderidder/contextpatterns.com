@@ -224,7 +224,18 @@
     </div>
 
     <section>
-      <h2>Emerging Patterns</h2>
+      <h2>The Problem</h2>
+      <div class="patterns">
+        <div class="pattern">
+          <h3>Context Rot</h3>
+          <p>Model quality degrades as context gets longer - even well within the window limit. 11 of 12 models drop below 50% at 32k tokens. GPT-5 fails on reasoning tasks long before hitting its 272k limit. The window size on the box is not the window size you get. Every pattern below exists because of this.</p>
+          <div class="source"><a href="https://arxiv.org/abs/2503.14070" style="color: var(--accent); text-decoration: none;">Hong et al. (2025)</a>, <a href="https://arxiv.org/abs/2502.05167" style="color: var(--accent); text-decoration: none;">NoLiMa Benchmark</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Patterns</h2>
       <div class="patterns">
         <div class="pattern">
           <h3>The Pyramid</h3>
@@ -234,7 +245,7 @@
 
         <div class="pattern">
           <h3>Select, Don't Dump</h3>
-          <p>The smallest set of high-signal tokens that maximize the desired outcome. 11 of 12 models drop below 50% performance at 32k tokens. More context isn't better context. Surgical selection beats comprehensive inclusion.</p>
+          <p>The smallest set of high-signal tokens that maximize the desired outcome. More context isn't better context. Surgical selection beats comprehensive inclusion. Treat every token as a cost, not a freebie.</p>
           <div class="source">NoLiMa Benchmark, Chroma Research</div>
         </div>
 
