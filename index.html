@@ -195,6 +195,8 @@
       .stat-number { font-size: 1.4rem; }
     }
   </style>
+  <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 </head>
 <body>
   <div class="container">
@@ -240,37 +242,37 @@
         <div class="pattern">
           <h3>The Pyramid</h3>
           <p>Start with general background, progressively add specific details. Give the model altitude before asking it to land. Mirrors how experts brief each other - context first, task second.</p>
-          <div class="source">Anthropic — Effective Context Engineering for AI Agents</div>
+          <div class="source"><a href="https://www.anthropic.com/engineering/context-engineering" style="color: var(--accent); text-decoration: none;">Anthropic — Effective Context Engineering for AI Agents</a></div>
         </div>
 
         <div class="pattern">
           <h3>Select, Don't Dump</h3>
           <p>The smallest set of high-signal tokens that maximize the desired outcome. More context isn't better context. Surgical selection beats comprehensive inclusion. Treat every token as a cost, not a freebie.</p>
-          <div class="source">NoLiMa Benchmark, Chroma Research</div>
+          <div class="source"><a href="https://arxiv.org/abs/2502.05167" style="color: var(--accent); text-decoration: none;">NoLiMa Benchmark</a>, <a href="https://research.trychroma.com/evaluating-chunking" style="color: var(--accent); text-decoration: none;">Chroma Research</a></div>
         </div>
 
         <div class="pattern">
           <h3>Isolate</h3>
           <p>Give sub-agents their own focused contexts instead of sharing one massive window. Anthropic's multi-agent system uses 15x more tokens total but gets better results - because each agent sees only what it needs.</p>
-          <div class="source">Anthropic — Multi-Agent Research System</div>
+          <div class="source"><a href="https://www.anthropic.com/engineering/built-multi-agent-research-system" style="color: var(--accent); text-decoration: none;">Anthropic — Multi-Agent Research System</a></div>
         </div>
 
         <div class="pattern">
           <h3>Compress & Restart</h3>
           <p>When conversations grow long, summarize what matters and start fresh. Context quality degrades past 85% window capacity. Compaction beats continuation. Treat context like a cache, not a log.</p>
-          <div class="source">LangChain — Context Engineering for Agents</div>
+          <div class="source"><a href="https://blog.langchain.dev/context-engineering-for-agents/" style="color: var(--accent); text-decoration: none;">LangChain — Context Engineering for Agents</a></div>
         </div>
 
         <div class="pattern">
           <h3>Write Outside the Window</h3>
           <p>Persist important context to external storage - scratchpads, memory files, knowledge bases. The context window is working memory, not long-term memory. What matters should survive beyond a single session.</p>
-          <div class="source">LangChain, Letta (MemGPT)</div>
+          <div class="source"><a href="https://blog.langchain.dev/context-engineering-for-agents/" style="color: var(--accent); text-decoration: none;">LangChain</a>, <a href="https://www.letta.com/blog/memgpt" style="color: var(--accent); text-decoration: none;">Letta (MemGPT)</a></div>
         </div>
 
         <div class="pattern">
           <h3>Progressive Disclosure</h3>
           <p>Don't pre-load everything. Maintain lightweight identifiers and load full data on demand at runtime. Let the model discover what it needs through exploration, like a developer navigating a codebase.</p>
-          <div class="source">Anthropic — Advanced Retrieval Techniques</div>
+          <div class="source"><a href="https://www.anthropic.com/engineering/contextual-retrieval" style="color: var(--accent); text-decoration: none;">Anthropic — Contextual Retrieval</a></div>
         </div>
 
         <div class="pattern">
