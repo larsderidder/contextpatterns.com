@@ -7,7 +7,7 @@ import Base from '../layouts/Base.astro';
   description="Curated research, papers, and articles on context engineering. Benchmarks, frameworks, case studies, and practitioner insights."
   canonicalPath="/research"
 >
-  <article class="reading-page">
+  <main class="reading-page">
     <header class="reading-hero">
       <div class="reading-breadcrumb">
         <a href="/">Context Patterns</a>
@@ -66,7 +66,7 @@ import Base from '../layouts/Base.astro';
       <div class="entry">
         <h3><a href="https://www.letta.com/blog/context-bench" rel="noopener">Context-Bench</a></h3>
         <p class="entry-meta">Letta</p>
-        <p>Benchmark specifically for agentic context engineering. Claude Sonnet 4.5 scored 74%, GPT-5 scored 72.67%. Useful for comparing how well models handle context management tasks rather than just raw reasoning.</p>
+        <p>Benchmark specifically for agentic context engineering. Evaluates how well models chain file operations, trace entity relationships, and manage multi-step retrieval. See the <a href="https://leaderboard.letta.com/" rel="noopener">live leaderboard</a> for current rankings.</p>
       </div>
 
       <div class="entry">
@@ -106,7 +106,7 @@ import Base from '../layouts/Base.astro';
       <div class="entry">
         <h3><a href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html" rel="noopener">How Contexts Fail and How to Fix Them</a></h3>
         <p class="entry-meta">Drew Breunig</p>
-        <p>Taxonomy of context failure modes: poisoning (hallucination enters context), distraction (context overwhelms training), confusion (superfluous context influences response), clash (parts disagree), overload (past 85% capacity). Useful diagnostic framework when things go wrong.</p>
+        <p>Taxonomy of context failure modes: poisoning (hallucination enters context), distraction (context overwhelms training), confusion (superfluous context influences response), clash (parts disagree). Useful diagnostic framework when things go wrong.</p>
       </div>
 
       <div class="entry">
@@ -186,21 +186,16 @@ import Base from '../layouts/Base.astro';
       </div>
 
       <div class="entry">
-        <h3>Cognition AI</h3>
+        <h3>Cognition AI team</h3>
         <p>"Context engineering is effectively the #1 job of engineers building AI agents." Warns that context hand-off between agents needs careful engineering, not just spawning sub-tasks.</p>
       </div>
 
       <div class="entry">
-        <h3>Ankur Goyal, Braintrust CEO</h3>
-        <p>"Good context engineering caches well. Bad context engineering is both slow and expensive." A useful heuristic: if your context assembly can't be cached, you're probably rebuilding too much from scratch.</p>
-      </div>
-
-      <div class="entry">
         <h3>Industry consensus, 2026</h3>
-        <p>The recurring theme across practitioners: production AI failures are "context failures, not model failures." The model is not the product; the orchestration is.</p>
+        <p>A recurring theme across practitioners: most production AI failures stem from poor context, not model limitations. The model is not the product; the orchestration is.</p>
       </div>
     </section>
-  </article>
+  </main>
 </Base>
 
 <style>

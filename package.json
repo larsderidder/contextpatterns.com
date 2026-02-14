@@ -20,6 +20,7 @@
   "homepage": "https://github.com/larsderidder/contextpatterns.com#readme",
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
-    "astro": "^5.17.2"
+    "astro": "^5.17.2",
+    "rehype-external-links": "^3.0.0"
   }
 }
