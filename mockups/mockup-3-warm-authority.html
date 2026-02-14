@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Context Patterns — Warm Authority Direction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FBF8F1;
+      --surface: #FFFFFF;
+      --surface-warm: #F5F0E6;
+      --border: #DDD6C8;
+      --border-strong: #C8BFA8;
+      --text: #2D2A24;
+      --text-secondary: #6B6560;
+      --accent: #C05621;
+      --accent-hover: #A8491B;
+      --accent-light: rgba(192, 86, 33, 0.08);
+      --blue: #4A7C9B;
+      --blue-light: rgba(74, 124, 155, 0.08);
+      --green: #5C8A5E;
+      --green-light: rgba(92, 138, 94, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Sans 3', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle paper texture */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body > * { position: relative; z-index: 1; }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(251, 248, 241, 0.92);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero with warm gradient */
+    .hero-wrap {
+      background: linear-gradient(180deg, var(--surface-warm) 0%, var(--bg) 100%);
+      padding: 88px 48px 72px;
+    }
+
+    .hero {
+      max-width: 740px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-light);
+      border: 1px solid rgba(192, 86, 33, 0.15);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 3.4rem;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Stats */
+    .stats-strip {
+      max-width: 740px;
+      margin: 48px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .stat-card:hover {
+      box-shadow: 0 4px 20px rgba(45, 42, 36, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .stat-number {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    /* Quote */
+    .quote-area {
+      max-width: 700px;
+      margin: 56px auto;
+      padding: 0 48px;
+    }
+
+    .quote-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 36px;
+      position: relative;
+    }
+
+    .quote-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 16px;
+      bottom: 16px;
+      width: 4px;
+      background: var(--accent);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .quote-card p {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .quote-card footer {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    /* Content */
+    .content {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 64px 0 28px;
+    }
+
+    .section-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .section-icon.problem { background: rgba(192, 86, 33, 0.12); color: var(--accent); }
+    .section-icon.patterns { background: var(--blue-light); color: var(--blue); }
+    .section-icon.tools { background: var(--green-light); color: var(--green); }
+    .section-icon.writing { background: rgba(192, 86, 33, 0.12); color: var(--accent); }
+
+    .section-head h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Pattern cards */
+    .pattern-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .p-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: box-shadow 0.25s, border-color 0.25s;
+    }
+
+    .p-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 4px 20px rgba(45, 42, 36, 0.06);
+    }
+
+    .p-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .p-card-badge {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .p-card:nth-child(odd) .p-card-badge { background: var(--blue); }
+    .p-card:nth-child(even) .p-card-badge { background: var(--accent); }
+
+    .p-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .p-card p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .p-card .source {
+      margin-top: 10px;
+      font-size: 0.8rem;
+    }
+
+    .p-card .source a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .p-card .source a:hover { text-decoration: underline; }
+
+    /* Tool card */
+    .tool-feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      transition: box-shadow 0.2s;
+    }
+
+    .tool-feature:hover {
+      box-shadow: 0 4px 20px rgba(45, 42, 36, 0.06);
+    }
+
+    .tool-tag {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .tool-feature h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .tool-feature p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .tool-feature .source {
+      margin-top: 12px;
+      font-size: 0.8rem;
+    }
+
+    .tool-feature .source a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Blog cards */
+    .blog-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .b-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      cursor: pointer;
+      transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+    }
+
+    .b-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 4px 20px rgba(45, 42, 36, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .b-card-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    .b-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .b-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .b-card-link {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .b-card-link:hover { text-decoration: underline; }
+
+    /* CTA */
+    .cta-area {
+      max-width: 500px;
+      margin: 72px auto 0;
+      padding: 0 48px;
+      text-align: center;
+    }
+
+    .cta-area h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .cta-area > p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .subscribe-form {
+      display: flex;
+      gap: 8px;
+      max-width: 400px;
+      margin: 0 auto 28px;
+    }
+
+    .subscribe-form input {
+      flex: 1;
+      padding: 13px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+
+    .subscribe-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .subscribe-form button {
+      padding: 13px 24px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .subscribe-form button:hover {
+      background: var(--accent-hover);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* Footer */
+    footer.site-footer {
+      margin-top: 72px;
+      padding: 28px 48px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    footer.site-footer span { color: var(--accent); }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .hero-wrap { padding: 56px 20px 56px; }
+      h1 { font-size: 2.4rem; }
+      .stats-strip { grid-template-columns: 1fr; gap: 12px; }
+      .content { padding: 0 20px; }
+      .blog-row { grid-template-columns: 1fr; }
+      .subscribe-form { flex-direction: column; }
+      .cta-area { padding: 0 20px; }
+      .quote-area { padding: 0 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo"><span>Context</span>Patterns</a>
+    <ul class="nav-links">
+      <li><a href="#">Patterns</a></li>
+      <li><a href="#">Tools</a></li>
+      <li><a href="#">Writing</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-wrap">
+    <header class="hero">
+      <div class="hero-badge"><span class="dot"></span> Context Engineering</div>
+      <h1>The discipline of designing what AI knows</h1>
+      <p class="hero-sub">Patterns, principles, and tools for context engineering. Because what you put in the window matters more than the model behind it.</p>
+
+      <div class="stats-strip">
+        <div class="stat-card">
+          <div class="stat-number">+10.6%</div>
+          <div class="stat-label">Agent benchmark improvement<br>with better context (Stanford/ACE)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">65%</div>
+          <div class="stat-label">Fewer errors with<br>architectural context (Microsoft)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">11/12</div>
+          <div class="stat-label">Models drop below 50%<br>at 32k tokens (NoLiMa)</div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <section class="quote-area">
+    <div class="quote-card">
+      <p>"Context engineering is the delicate art and science of filling the context window with just the right information for the next step."</p>
+      <footer><cite>Andrej Karpathy</cite></footer>
+    </div>
+  </section>
+
+  <main class="content">
+
+    <div class="section-head">
+      <div class="section-icon problem">!</div>
+      <h2>The Problem</h2>
+    </div>
+
+    <div class="pattern-cards">
+      <div class="p-card">
+        <div class="p-card-header">
+          <div class="p-card-badge" style="background: var(--accent)"></div>
+          <h3>Context Rot</h3>
+        </div>
+        <p>Model quality degrades as context gets longer, even well within the window limit. 11 of 12 models drop below 50% at 32k tokens. GPT-5 fails on reasoning tasks long before hitting its 272k limit. The window size on the box is not the window size you get. Every pattern below exists because of this.</p>
+        <div class="source"><a href="#">Hong et al. (2025)</a>, <a href="#">NoLiMa Benchmark</a></div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div class="section-icon patterns">&#9670;</div>
+      <h2>Patterns</h2>
+    </div>
+
+    <div class="pattern-cards">
+      <div class="p-card">
+        <div class="p-card-header">
+          <div class="p-card-badge"></div>
+          <h3>The Pyramid</h3>
+        </div>
+        <p>Start with general background, progressively add specific details. Give the model altitude before asking it to land. Mirrors how experts brief each other: context first, task second.</p>
+        <div class="source"><a href="#">Anthropic: Effective Context Engineering for AI Agents</a></div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-header">
+          <div class="p-card-badge"></div>
+          <h3>Select, Don't Dump</h3>
+        </div>
+        <p>The smallest set of high-signal tokens that maximize the desired outcome. More context isn't better context. Surgical selection beats comprehensive inclusion. Treat every token as a cost, not a freebie.</p>
+        <div class="source"><a href="#">NoLiMa Benchmark</a>, <a href="#">Chroma Research</a></div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-header">
+          <div class="p-card-badge"></div>
+          <h3>Isolate</h3>
+        </div>
+        <p>Give sub-agents their own focused contexts instead of sharing one massive window. Anthropic's multi-agent system uses 15x more tokens total but gets better results, because each agent sees only what it needs.</p>
+        <div class="source"><a href="#">Anthropic: Multi-Agent Research System</a></div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-header">
+          <div class="p-card-badge"></div>
+          <h3>Compress &amp; Restart</h3>
+        </div>
+        <p>When conversations grow long, summarize what matters and start fresh. Context quality degrades past 85% window capacity. Compaction beats continuation. Treat context like a cache, not a log.</p>
+        <div class="source"><a href="#">LangChain: Context Engineering for Agents</a></div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-header">
+          <div class="p-card-badge"></div>
+          <h3>Write Outside the Window</h3>
+        </div>
+        <p>Persist important context to external storage: scratchpads, memory files, knowledge bases. The context window is working memory, not long-term memory. What matters should survive beyond a single session.</p>
+        <div class="source"><a href="#">LangChain</a>, <a href="#">Letta (MemGPT)</a></div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-header">
+          <div class="p-card-badge"></div>
+          <h3>Progressive Disclosure</h3>
+        </div>
+        <p>Don't pre-load everything. Maintain lightweight identifiers and load full data on demand at runtime. Let the model discover what it needs through exploration, like a developer navigating a codebase.</p>
+        <div class="source"><a href="#">Anthropic: Contextual Retrieval</a></div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-header">
+          <div class="p-card-badge"></div>
+          <h3>Recursive Delegation</h3>
+        </div>
+        <p>Give the agent a code environment to programmatically manipulate its own context, and let it spawn child agents with controlled sub-contexts. Context becomes a tree, not a monolith.</p>
+        <div class="source"><a href="#">Zhang et al. (2025): Recursive Language Models</a></div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div class="section-icon tools">&#9881;</div>
+      <h2>Tools</h2>
+    </div>
+
+    <div class="tool-feature">
+      <div class="tool-tag">Open Source</div>
+      <h3>Context Lens</h3>
+      <p>See what your AI actually sees. A framework-agnostic proxy that intercepts LLM API calls and visualizes context window composition in real time. Works with Claude, GPT, and any tool that calls an LLM API.</p>
+      <div class="source"><a href="#">github.com/larsderidder/context-lens</a></div>
+    </div>
+
+    <div class="section-head">
+      <div class="section-icon writing">&#9998;</div>
+      <h2>Writing</h2>
+    </div>
+
+    <div class="blog-row">
+      <article class="b-card">
+        <div class="b-card-category">Research</div>
+        <h3>Why Context Windows Are a Lie</h3>
+        <p>Every model advertises a window size. Almost none deliver on it. Here's what actually happens past 32k tokens, and what to do about it.</p>
+        <a href="#" class="b-card-link">Read article &rarr;</a>
+      </article>
+      <article class="b-card">
+        <div class="b-card-category">Architecture</div>
+        <h3>The Case for Multi-Agent Context</h3>
+        <p>Splitting work across focused agents uses more tokens but produces better results. Why isolation beats sharing.</p>
+        <a href="#" class="b-card-link">Read article &rarr;</a>
+      </article>
+    </div>
+
+  </main>
+
+  <section class="cta-area">
+    <h2>Stay informed</h2>
+    <p>New patterns and research when they're ready. No spam, no noise.</p>
+    <form class="subscribe-form" onsubmit="event.preventDefault()">
+      <input type="email" placeholder="you@example.com" aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+    <div class="footer-links">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">X / Twitter</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span>Context</span>Patterns.com &middot; Lars de Ridder
+  </footer>
+
+</body>
+</html>

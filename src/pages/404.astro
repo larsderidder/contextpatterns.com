@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Not Found — Context Patterns" description="Page not found.">
+  <div class="not-found">
+    <h1>404</h1>
+    <p>This page doesn't exist. The context window has no record of it.</p>
+    <a href="/">Back to patterns</a>
+  </div>
+</Base>
+
+<style>
+  .not-found {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 120px 48px;
+    text-align: center;
+  }
+
+  .not-found h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 5rem;
+    font-weight: 400;
+    color: var(--border-strong);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .not-found p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  .not-found a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .not-found a:hover {
+    border-bottom-color: var(--accent);
+    text-decoration: none;
+  }
+</style>

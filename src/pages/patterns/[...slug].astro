@@ -1,0 +1,351 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const patterns = await getCollection('patterns');
+  return patterns.map((pattern) => ({
+    params: { slug: pattern.id.replace(/\.md$/, '') },
+    props: { pattern },
+  }));
+}
+
+function stripExt(id: string) {
+  return id.replace(/\.md$/, '');
+}
+
+const { pattern } = Astro.props;
+const { Content } = await pattern.render();
+
+const allPatterns = (await getCollection('patterns')).sort((a, b) => a.data.order - b.data.order);
+
+const relatedPatterns = pattern.data.related
+  ? await Promise.all(
+      pattern.data.related.map(async (slug: string) => {
+        const entry = await getEntry('patterns', slug);
+        return entry ? { slug, title: entry.data.title, summary: entry.data.summary } : null;
+      })
+    ).then(results => results.filter(Boolean))
+  : [];
+---
+
+<Base
+  title={`${pattern.data.title} — Context Patterns`}
+  description={pattern.data.summary}
+  canonicalPath={`/patterns/${stripExt(pattern.id)}`}
+>
+  <article class="pattern-page">
+    <header class="pattern-hero">
+      <div class="pattern-breadcrumb">
+        <a href="/">Context Patterns</a>
+        <span class="sep">/</span>
+        <a href="/#patterns">Patterns</a>
+      </div>
+      <h1>{pattern.data.title}</h1>
+      <p class="pattern-summary">{pattern.data.summary}</p>
+      <div class="pattern-sources">
+        {pattern.data.sources.map((source: { label: string; url: string }, i: number) => (
+          <>
+            {i > 0 && ', '}
+            <a href={source.url} rel="noopener">{source.label}</a>
+          </>
+        ))}
+      </div>
+    </header>
+
+    <div class="pattern-content">
+      <Content />
+    </div>
+
+    {relatedPatterns.length > 0 && (
+      <aside class="related-section">
+        <h2>Related patterns</h2>
+        <div class="related-cards">
+          {relatedPatterns.map((related: any) => (
+            <a href={`/patterns/${related.slug}`} class="related-card">
+              <h3>{related.title}</h3>
+              <p>{related.summary}</p>
+            </a>
+          ))}
+        </div>
+      </aside>
+    )}
+
+    <nav class="pattern-nav">
+      {allPatterns.map((p) => (
+        <a
+          href={p.id === pattern.id ? '#' : `/patterns/${stripExt(p.id)}`}
+          class:list={['pattern-nav-item', { active: p.id === pattern.id }]}
+        >
+          {p.data.title}
+        </a>
+      ))}
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .pattern-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ── Hero ── */
+
+  .pattern-hero {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .pattern-breadcrumb {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+
+  .pattern-breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .pattern-breadcrumb a:hover {
+    color: var(--accent);
+  }
+
+  .pattern-breadcrumb .sep {
+    margin: 0 6px;
+    color: var(--border-strong);
+  }
+
+  .pattern-hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .pattern-summary {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .pattern-sources {
+    font-size: 0.8rem;
+  }
+
+  .pattern-sources a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .pattern-sources a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  /* ── Content ── */
+
+  .pattern-content {
+    padding: 48px 0;
+  }
+
+  .pattern-content :global(h2) {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text);
+    margin: 48px 0 16px;
+    padding: 0;
+    border: none;
+    display: block;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+
+  .pattern-content :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .pattern-content :global(p) {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .pattern-content :global(strong) {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .pattern-content :global(ul),
+  .pattern-content :global(ol) {
+    margin: 0 0 16px 24px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  .pattern-content :global(li) {
+    margin-bottom: 6px;
+  }
+
+  .pattern-content :global(a) {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .pattern-content :global(a:hover) {
+    border-bottom-color: var(--accent);
+  }
+
+  .pattern-content :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding: 12px 20px;
+    margin: 24px 0;
+    background: var(--accent-light);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .pattern-content :global(blockquote p) {
+    color: var(--text);
+    margin-bottom: 0;
+  }
+
+  .pattern-content :global(code) {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.85em;
+    background: rgba(107, 124, 110, 0.08);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  .pattern-content :global(pre) {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 24px 0;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .pattern-content :global(pre code) {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  /* ── Related ── */
+
+  .related-section {
+    border-top: 1px solid var(--rule);
+    padding: 48px 0;
+  }
+
+  .related-section h2 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--sage);
+    display: inline-block;
+  }
+
+  .related-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .related-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    text-decoration: none;
+    transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+  }
+
+  .related-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  .related-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .related-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── Pattern nav ── */
+
+  .pattern-nav {
+    border-top: 1px solid var(--rule);
+    padding: 32px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pattern-nav-item {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    transition: all 0.2s;
+  }
+
+  .pattern-nav-item:hover {
+    border-color: var(--border-strong);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .pattern-nav-item.active {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+    pointer-events: none;
+  }
+
+  /* ── Responsive ── */
+
+  @media (max-width: 600px) {
+    .pattern-page { padding: 0 24px; }
+    .pattern-hero h1 { font-size: 2rem; }
+    .related-cards { grid-template-columns: 1fr; }
+  }
+</style>

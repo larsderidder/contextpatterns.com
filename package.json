@@ -1,0 +1,24 @@
+{
+  "name": "contextpatterns",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larsderidder/contextpatterns.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/larsderidder/contextpatterns.com/issues"
+  },
+  "homepage": "https://github.com/larsderidder/contextpatterns.com#readme",
+  "dependencies": {
+    "astro": "^5.17.2"
+  }
+}

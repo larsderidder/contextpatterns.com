@@ -1,0 +1,349 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Research — Context Patterns"
+  description="Curated research, papers, and articles on context engineering. Benchmarks, frameworks, case studies, and practitioner insights."
+  canonicalPath="/research"
+>
+  <article class="reading-page">
+    <header class="reading-hero">
+      <div class="reading-breadcrumb">
+        <a href="/">Context Patterns</a>
+      </div>
+      <h1>Research</h1>
+      <p class="reading-intro">Papers, benchmarks, and articles that shaped the patterns on this site. Each entry is annotated with why it matters.</p>
+    </header>
+
+    <nav class="reading-toc">
+      <a href="#benchmarks">Benchmarks &amp; Research</a>
+      <a href="#practices">Best Practices</a>
+      <a href="#case-studies">Case Studies</a>
+      <a href="#tools">Tools &amp; Frameworks</a>
+      <a href="#perspectives">Practitioner Perspectives</a>
+    </nav>
+
+    <section id="benchmarks">
+      <h2>Benchmarks &amp; Research</h2>
+
+      <div class="entry">
+        <h3><a href="https://arxiv.org/abs/2502.05167" rel="noopener">NoLiMa: Long-Context Benchmark</a></h3>
+        <p class="entry-meta">Hsieh et al., Feb 2025</p>
+        <p>The paper that made context rot impossible to ignore. 11 of 12 models dropped below 50% accuracy at just 32k tokens. Not at the edge of their window. At a fraction of it. This single finding undermines the "bigger window, better results" assumption that most context strategies rely on.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://arxiv.org/abs/2510.04618" rel="noopener">ACE Framework</a></h3>
+        <p class="entry-meta">Stanford/SambaNova, Oct 2025</p>
+        <p>Demonstrated a +10.6% improvement on agent benchmarks and +8.6% on finance tasks through better context engineering alone. No model changes. The key insight: contexts should function as "comprehensive, evolving playbooks," not concise summaries. Also introduced the concept of "context collapse," where iterative rewriting erodes detail over time.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://arxiv.org/abs/2602.07962" rel="noopener">LOCA-bench: Long-Running Agent Context Rot</a></h3>
+        <p class="entry-meta">Zeng et al. (HKUST-NLP), Feb 2026</p>
+        <p>First benchmark to test context degradation in long-running agentic scenarios specifically. Unlike NoLiMa (which tests single-step retrieval), LOCA-bench tests agents that explore, act, and accumulate context over time. Confirmed that advanced context management strategies substantially improve success rates in these scenarios.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://arxiv.org/abs/2602.05447" rel="noopener">Structured Context Engineering for File-Native Agentic Systems</a></h3>
+        <p class="entry-meta">McMillan, Feb 2026 &middot; 9,649 experiments</p>
+        <p>The most comprehensive empirical study on context format and structure to date. Tested 11 models across 4 formats and schemas up to 10,000 tables. Found that format matters less than model capability (21 percentage point gap between frontier and open source) and that novel compact formats can incur a "grep tax" where the model spends extra tokens trying to parse unfamiliar structures.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://arxiv.org/abs/2601.11564" rel="noopener">Context Tax: Latency vs. Accuracy at Scale</a></h3>
+        <p class="entry-meta">Dec 2025</p>
+        <p>Quantified the operational cost of long context. Llama-3.1-70B showed a 719% latency increase at 15k-word context, while accuracy only dropped from 98.5% to 98%. Models don't lose their way; they become operationally expensive. The bottleneck is memory bandwidth, not computational FLOPs.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://research.trychroma.com/context-rot" rel="noopener">Context Rot</a></h3>
+        <p class="entry-meta">Chroma Research</p>
+        <p>Documents how increasing input tokens impacts LLM performance through systematic "Needle in a Haystack" testing. The data behind the term "context rot" that the patterns on this site address.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://www.letta.com/blog/context-bench" rel="noopener">Context-Bench</a></h3>
+        <p class="entry-meta">Letta</p>
+        <p>Benchmark specifically for agentic context engineering. Claude Sonnet 4.5 scored 74%, GPT-5 scored 72.67%. Useful for comparing how well models handle context management tasks rather than just raw reasoning.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://arxiv.org/abs/2602.03786" rel="noopener">AOrchestra: Automated Sub-Agent Creation</a></h3>
+        <p class="entry-meta">Ruan et al., Feb 2026</p>
+        <p>Formalizes agents as a tuple of (Instruction, Context, Tools, Model) and automates their creation. Achieved a 16.28% improvement over the strongest baseline. Directly relevant to the Isolate and Recursive Delegation patterns: the orchestrator curates task-relevant context and delegates via on-the-fly agent creation.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://blog.jetbrains.com/research/2025/12/efficient-context-management/" rel="noopener">Efficient Context Management</a></h3>
+        <p class="entry-meta">JetBrains Research, Dec 2025</p>
+        <p>Practical hybrid approach combining observation masking and LLM summarization on SWE-bench. Achieved 7-11% cost reduction. Useful as a real-world engineering case study rather than a benchmark paper.</p>
+      </div>
+    </section>
+
+    <section id="practices">
+      <h2>Best Practices</h2>
+
+      <div class="entry">
+        <h3><a href="https://www.anthropic.com/engineering/context-engineering" rel="noopener">Effective Context Engineering for AI Agents</a></h3>
+        <p class="entry-meta">Anthropic</p>
+        <p>The foundational reference. Introduces the pyramid approach, the principle of finding the smallest set of high-signal tokens, and the concept of "right altitude" for instructions. Most of the patterns on this site trace back to principles articulated here.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://blog.langchain.dev/context-engineering-for-agents/" rel="noopener">Context Engineering for Agents</a></h3>
+        <p class="entry-meta">LangChain</p>
+        <p>Defines the four-strategy framework: Write (persist outside the window), Select (pull relevant context in), Compress (summarize and trim), Isolate (separate contexts per agent). Clean taxonomy that maps directly to the patterns here.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://redis.io/blog/context-engineering-best-practices-for-an-emerging-discipline/" rel="noopener">Context Engineering Best Practices</a></h3>
+        <p class="entry-meta">Redis</p>
+        <p>Production-oriented guidance: treat context as infrastructure, prune aggressively, store and reuse context development. The emphasis on memory layers (short-term session + long-term cross-session) as essential infrastructure rather than optional features.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html" rel="noopener">How Contexts Fail and How to Fix Them</a></h3>
+        <p class="entry-meta">Drew Breunig</p>
+        <p>Taxonomy of context failure modes: poisoning (hallucination enters context), distraction (context overwhelms training), confusion (superfluous context influences response), clash (parts disagree), overload (past 85% capacity). Useful diagnostic framework when things go wrong.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://www.anthropic.com/engineering/contextual-retrieval" rel="noopener">Contextual Retrieval</a></h3>
+        <p class="entry-meta">Anthropic</p>
+        <p>The just-in-time approach to context: maintain lightweight identifiers, load data dynamically at runtime. Progressive disclosure rather than pre-loading. The basis for the Progressive Disclosure pattern.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://www.harshal-patil.com/post/ai-copilot-product-trends-2026q1" rel="noopener">AI Copilot Product Trends, Q1 2026</a></h3>
+        <p class="entry-meta">Harshal Patil (FlexAI/n8n), Feb 2026</p>
+        <p>Product management perspective on why fine-tuning lost to context engineering: high effort, foundation models improved too fast, context engineering extracts enough value without retraining. Also frames the shift from "context window size" to "context relevance" as the real bottleneck.</p>
+      </div>
+    </section>
+
+    <section id="case-studies">
+      <h2>Case Studies</h2>
+
+      <div class="entry">
+        <h3><a href="https://www.anthropic.com/engineering/built-multi-agent-research-system" rel="noopener">How We Built a Multi-Agent Research System</a></h3>
+        <p class="entry-meta">Anthropic</p>
+        <p>Sub-agents with isolated contexts outperformed a single agent, using 15x more tokens total but producing higher quality output. Structured note-taking to NOTES.md for persistence across agent boundaries. The primary case study behind the Isolate pattern.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://www.etsy.com/codeascraft/context-engineering-case-studies-etsy-specific-question-answering" rel="noopener">Context Engineering Case Studies: Etsy-Specific Q&amp;A</a></h3>
+        <p class="entry-meta">Etsy Engineering</p>
+        <p>How Etsy reduced hallucinations in company-specific question answering through explicit instructions and relevant contextual information. Practical example of the Pyramid pattern applied to enterprise knowledge retrieval.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://www.marktechpost.com/2025/08/12/case-studies-real-world-applications-of-context-engineering/" rel="noopener">Real-World Applications of Context Engineering</a></h3>
+        <p class="entry-meta">MarkTechPost, Aug 2025</p>
+        <p>Collection of industry case studies. Five Sigma (insurance): 80% fewer claim processing errors, 25% higher adjuster productivity via RAG and dynamic context assembly. Financial services: 40% reduction in user frustration. Telecom: 67% fewer escalations. Concrete numbers on what good context engineering delivers in production.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://oso.sh/blog/how-to-build-real-time-context-engine-ai-agents-apache-kafka/" rel="noopener">Building a Real-Time Context Engine for AI Agents</a></h3>
+        <p class="entry-meta">OSO Engineering, Feb 2026</p>
+        <p>Technical deep dive triggered by IBM's $11B Confluent acquisition. Argues that RAG is document retrieval, but context is operational state. Proposes an event-driven architecture (Kafka + Snowplow) for real-time context that changes minute-by-minute. Important for understanding where static context patterns break down.</p>
+      </div>
+    </section>
+
+    <section id="tools">
+      <h2>Tools &amp; Frameworks</h2>
+
+      <div class="entry">
+        <h3><a href="https://www.letta.com/blog/memgpt" rel="noopener">MemGPT / Letta</a></h3>
+        <p class="entry-meta">Letta</p>
+        <p>Memory-first agent framework. Treats the LLM like an operating system kernel with managed memory blocks. The architecture that inspired the Write Outside the Window pattern: persistent context with size limits, labels, and access patterns, managed through system calls.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://modelcontextprotocol.io" rel="noopener">Model Context Protocol (MCP)</a></h3>
+        <p class="entry-meta">Anthropic</p>
+        <p>Standardized protocol for context retrieval. "USB-C for AI." Adopted by Block, OpenAI, Microsoft. Enables dynamic, information-rich environments rather than static prompts. The infrastructure layer that makes Progressive Disclosure practical at scale.</p>
+      </div>
+
+      <div class="entry">
+        <h3><a href="https://github.com/larsderidder/context-lens" rel="noopener">Context Lens</a></h3>
+        <p class="entry-meta">Open Source</p>
+        <p>Framework-agnostic proxy that intercepts LLM API calls and visualizes context window composition in real time. See what your AI actually sees.</p>
+      </div>
+    </section>
+
+    <section id="perspectives">
+      <h2>Practitioner Perspectives</h2>
+
+      <div class="entry">
+        <h3>Andrej Karpathy</h3>
+        <p>"Context engineering is the delicate art and science of filling the context window with just the right information for the next step." Framed LLMs as "the kernel process of a new Operating System" where context is the managed memory.</p>
+      </div>
+
+      <div class="entry">
+        <h3>Tobi Lutke, Shopify CEO</h3>
+        <p>"Context engineering describes the core skill better" than prompt engineering. "The art of providing all the context for the task to be plausibly solvable by the LLM." A signal that this framing has reached the executive level.</p>
+      </div>
+
+      <div class="entry">
+        <h3>Cognition AI</h3>
+        <p>"Context engineering is effectively the #1 job of engineers building AI agents." Warns against careless multi-agent design: context hand-off between agents needs careful engineering, not just spawning sub-tasks.</p>
+      </div>
+
+      <div class="entry">
+        <h3>Ankur Goyal, Braintrust CEO</h3>
+        <p>"Good context engineering caches well. Bad context engineering is both slow and expensive." A useful heuristic: if your context assembly can't be cached, you're probably rebuilding too much from scratch.</p>
+      </div>
+
+      <div class="entry">
+        <h3>Industry consensus, 2026</h3>
+        <p>Production AI failures are "context failures, not model failures." The shift from "clever prompts" to "systematic context management" is complete. The model is not the product; the orchestration is.</p>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .reading-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .reading-hero {
+    padding: 64px 0 40px;
+  }
+
+  .reading-breadcrumb {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+
+  .reading-breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .reading-breadcrumb a:hover {
+    color: var(--accent);
+  }
+
+  .reading-hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .reading-intro {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ── TOC ── */
+
+  .reading-toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 24px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+
+  .reading-toc a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    transition: all 0.2s;
+  }
+
+  .reading-toc a:hover {
+    border-color: var(--border-strong);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  /* ── Sections ── */
+
+  section {
+    margin-bottom: 56px;
+  }
+
+  section h2 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--sage);
+    display: inline-block;
+  }
+
+  /* ── Entries ── */
+
+  .entry {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .entry:last-child {
+    border-bottom: none;
+  }
+
+  .entry h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+
+  .entry h3 a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .entry h3 a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    text-decoration: none;
+  }
+
+  .entry-meta {
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .entry p:not(.entry-meta) {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ── Responsive ── */
+
+  @media (max-width: 600px) {
+    .reading-page { padding: 0 24px; }
+    .reading-hero h1 { font-size: 2rem; }
+    .reading-toc { gap: 6px; }
+  }
+</style>

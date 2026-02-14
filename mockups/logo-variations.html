@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Variations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FAFAF7;
+      color: #1A1A1A;
+      padding: 60px 48px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      padding: 40px 0;
+      border-bottom: 1px solid #E5E1DA;
+    }
+
+    .label {
+      width: 200px;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      color: #555550;
+      line-height: 1.5;
+    }
+
+    .label strong { color: #1A1A1A; display: block; margin-bottom: 4px; font-size: 0.85rem; }
+
+    /* Current */
+    .logo-current {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+    .logo-current span { color: #B8860B; }
+
+    /* A: Weight contrast */
+    .logo-a {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.01em;
+    }
+    .logo-a .context {
+      font-weight: 400;
+      color: #555550;
+    }
+    .logo-a .patterns {
+      font-weight: 700;
+      color: #1A1A1A;
+    }
+
+    /* B: All caps Inter with tracked spacing */
+    .logo-b {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .logo-b .context { color: #B8860B; }
+    .logo-b .patterns { color: #1A1A1A; }
+
+    /* C: Serif + sans hybrid */
+    .logo-c .context {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      color: #1A1A1A;
+      letter-spacing: -0.01em;
+    }
+    .logo-c .patterns {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #555550;
+      letter-spacing: 0.02em;
+      margin-left: 2px;
+    }
+
+    /* D: Dot separator */
+    .logo-d {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .logo-d .context { color: #1A1A1A; }
+    .logo-d .dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background: #B8860B;
+      border-radius: 50%;
+      margin: 0 6px;
+      vertical-align: middle;
+    }
+    .logo-d .patterns { color: #555550; }
+
+    /* E: Stacked / compact */
+    .logo-e {
+      line-height: 1.1;
+    }
+    .logo-e .context {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      color: #1A1A1A;
+      display: block;
+      letter-spacing: -0.02em;
+    }
+    .logo-e .patterns {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #B8860B;
+      display: block;
+    }
+
+    /* F: Underscore separator */
+    .logo-f {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .logo-f .context { color: #1A1A1A; }
+    .logo-f .sep { color: #B8860B; margin: 0 1px; }
+    .logo-f .patterns { color: #555550; font-weight: 400; }
+  </style>
+</head>
+<body>
+
+  <div class="row">
+    <div class="label"><strong>Current</strong>Instrument Serif, color split on "Context"</div>
+    <div class="logo-current"><span>Context</span>Patterns</div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>A: Weight contrast</strong>Light "Context", bold "Patterns" in Inter. The word that matters is heavier.</div>
+    <div class="logo-a"><span class="context">Context</span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>B: Tracked caps</strong>All caps Inter, tracked out. Gold on "Context". More systematic/structured.</div>
+    <div class="logo-b"><span class="context">Context</span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>C: Serif + sans hybrid</strong>"Context" in Instrument Serif, "Patterns" in Inter. Two type families = two concepts joined.</div>
+    <div class="logo-c"><span class="context">Context</span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>D: Dot separator</strong>Gold dot between the two words. Subtle but distinctive.</div>
+    <div class="logo-d"><span class="context">Context</span><span class="dot"></span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>E: Stacked</strong>Big serif "Context" over small tracked "PATTERNS". Works well at larger sizes, like a masthead.</div>
+    <div class="logo-e"><span class="context">Context</span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>F: Slash separator</strong>Gold slash. Reads like a path or namespace.</div>
+    <div class="logo-f"><span class="context">context</span><span class="sep">/</span><span class="patterns">patterns</span></div>
+  </div>
+
+</body>
+</html>

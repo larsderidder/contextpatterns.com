@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Variations — Round 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FAFAF7;
+      color: #1A1A1A;
+      padding: 60px 48px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      padding: 40px 0;
+      border-bottom: 1px solid #E5E1DA;
+    }
+
+    .label {
+      width: 220px;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      color: #555550;
+      line-height: 1.5;
+    }
+
+    .label strong { color: #1A1A1A; display: block; margin-bottom: 4px; font-size: 0.85rem; }
+
+    /* Keep: Current */
+    .logo-current {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+    .logo-current span { color: #B8860B; }
+
+    /* Keep: A Weight contrast */
+    .logo-a {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.01em;
+    }
+    .logo-a .context { font-weight: 400; color: #555550; }
+    .logo-a .patterns { font-weight: 700; color: #1A1A1A; }
+
+    /* G: Current but italic "Context" */
+    .logo-g {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+    .logo-g .context {
+      font-style: italic;
+      color: #B8860B;
+    }
+    .logo-g .patterns {
+      font-style: normal;
+      color: #1A1A1A;
+    }
+
+    /* H: Tighter, slightly larger, no color split — underline accent */
+    .logo-h {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      color: #1A1A1A;
+      position: relative;
+      display: inline-block;
+    }
+    .logo-h::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 52%;
+      height: 2px;
+      background: #B8860B;
+    }
+
+    /* I: Pipe separator between words */
+    .logo-i {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+      color: #1A1A1A;
+    }
+    .logo-i .sep {
+      color: #B8860B;
+      margin: 0 5px;
+      font-weight: 300;
+    }
+
+    /* J: Small "context" + larger "Patterns" in serif */
+    .logo-j {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+    .logo-j .context {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #B8860B;
+    }
+    .logo-j .patterns {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      color: #1A1A1A;
+      letter-spacing: -0.02em;
+    }
+
+    /* K: Same as current but with a thin gold line between the words */
+    .logo-k {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-k .context { color: #B8860B; }
+    .logo-k .line {
+      width: 16px;
+      height: 1px;
+      background: #C8C3B8;
+    }
+    .logo-k .patterns { color: #1A1A1A; }
+
+    /* L: Lowercase, tighter tracking, gold dot as a period */
+    .logo-l {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      color: #1A1A1A;
+    }
+    .logo-l .dot {
+      color: #B8860B;
+      font-size: 1.6rem;
+      line-height: 0;
+      vertical-align: baseline;
+    }
+
+    /* M: Current but "Patterns" in a lighter color */
+    .logo-m {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+    .logo-m .context { color: #1A1A1A; }
+    .logo-m .patterns { color: #888580; }
+
+    /* N: Reversed — "Patterns" gold, "Context" dark */
+    .logo-n {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+    .logo-n .context { color: #1A1A1A; }
+    .logo-n .patterns { color: #B8860B; }
+  </style>
+</head>
+<body>
+
+  <div class="row">
+    <div class="label"><strong>Current</strong>Keeping for reference. Instrument Serif, gold "Context".</div>
+    <div class="logo-current"><span>Context</span>Patterns</div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>A: Weight contrast</strong>Keeping for reference. Inter, light/bold split.</div>
+    <div class="logo-a"><span class="context">Context</span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>G: Italic "Context"</strong>Same as current but italic on the gold word. Adds a calligraphic quality, differentiates from headings.</div>
+    <div class="logo-g"><span class="context">Context</span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>H: Underline accent</strong>No color split. A gold underline sits under "Context" only. Quieter, more refined.</div>
+    <div class="logo-h">ContextPatterns</div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>I: Pipe separator</strong>Gold pipe between words. Creates breathing room, reads as two distinct concepts.</div>
+    <div class="logo-i"><span>Context</span><span class="sep">|</span><span>Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>J: Label + name</strong>Small tracked "CONTEXT" as a label, larger serif "Patterns" as the name. Emphasizes the word you care about.</div>
+    <div class="logo-j"><span class="context">Context</span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>K: Gold + line + dark</strong>Current colors with a thin rule between words. Editorial, like a section divider in miniature.</div>
+    <div class="logo-k"><span class="context">Context</span><span class="line"></span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>L: Lowercase with gold period</strong>Lowercase reads more casual/modern. The gold period at the end acts as the brand mark.</div>
+    <div class="logo-l">contextpatterns<span class="dot">.</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>M: Faded second word</strong>All serif, but "Patterns" in a muted tone. "Context" is the anchor, "Patterns" recedes.</div>
+    <div class="logo-m"><span class="context">Context</span><span class="patterns">Patterns</span></div>
+  </div>
+
+  <div class="row">
+    <div class="label"><strong>N: Reversed gold</strong>Flip the current: dark "Context", gold "Patterns". Highlights the format, not the subject.</div>
+    <div class="logo-n"><span class="context">Context</span><span class="patterns">Patterns</span></div>
+  </div>
+
+</body>
+</html>

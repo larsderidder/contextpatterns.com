@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Context Patterns — Editorial Direction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAFAF7;
+      --surface: #FFFFFF;
+      --border: #E5E1DA;
+      --border-strong: #C8C3B8;
+      --text: #1A1A1A;
+      --text-secondary: #555550;
+      --accent: #B8860B;
+      --accent-hover: #9A7009;
+      --sage: #6B7C6E;
+      --sage-light: #F0F2F0;
+      --rule: #D4CFC5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Nav */
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 100px 48px 80px;
+      text-align: center;
+    }
+
+    .hero-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 3.5rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-top: 56px;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .stat {
+      flex: 1;
+      max-width: 220px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .stat + .stat {
+      border-left: 1px solid var(--rule);
+    }
+
+    .stat-number {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.2rem;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* Quote */
+    .blockquote-section {
+      max-width: 680px;
+      margin: 64px auto;
+      padding: 0 48px;
+      position: relative;
+    }
+
+    .big-quote {
+      font-family: 'Instrument Serif', serif;
+      font-size: 5rem;
+      color: var(--accent);
+      opacity: 0.3;
+      position: absolute;
+      top: -20px;
+      left: 24px;
+      line-height: 1;
+    }
+
+    blockquote {
+      border: none;
+      padding: 0 0 0 0;
+      margin: 0;
+    }
+
+    blockquote p {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    blockquote footer {
+      margin-top: 16px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    /* Content sections */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .section-rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 64px 0 48px;
+    }
+
+    .section-header {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--sage);
+      display: inline-block;
+    }
+
+    /* Pattern cards - journal style */
+    .patterns-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pattern-entry {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .pattern-entry:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .pattern-entry:hover {
+      background: var(--sage-light);
+      margin: 0 -24px;
+      padding: 32px 24px;
+      border-radius: 4px;
+    }
+
+    .pattern-name {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .pattern-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 620px;
+    }
+
+    .pattern-source {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .pattern-source a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .pattern-source a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    /* Tool card */
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 32px;
+      margin-top: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .tool-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .tool-card h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .tool-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .tool-card .pattern-source {
+      margin-top: 12px;
+    }
+
+    /* CTA / Newsletter */
+    .cta-section {
+      max-width: 520px;
+      margin: 80px auto 0;
+      padding: 0 48px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 8px;
+      max-width: 420px;
+      margin: 0 auto 32px;
+    }
+
+    .email-form input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      background: var(--surface);
+      transition: border-color 0.2s;
+    }
+
+    .email-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .email-form button {
+      padding: 12px 24px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .email-form button:hover {
+      background: var(--accent-hover);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    .social-links a {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .social-links a:hover { color: var(--text); }
+
+    /* Footer */
+    footer.site-footer {
+      margin-top: 80px;
+      padding: 32px 48px;
+      border-top: 1px solid var(--rule);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    footer.site-footer span { color: var(--accent); }
+
+    /* Blog preview section */
+    .blog-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .blog-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .blog-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .blog-date {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--sage);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .blog-card h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .blog-card p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .read-more:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      .nav-links a { font-size: 0.8rem; }
+      .hero { padding: 64px 24px 56px; }
+      h1 { font-size: 2.4rem; }
+      .stats { flex-direction: column; }
+      .stat + .stat { border-left: none; border-top: 1px solid var(--rule); }
+      .content { padding: 0 24px; }
+      .blog-preview { grid-template-columns: 1fr; }
+      .email-form { flex-direction: column; }
+      .cta-section { padding: 0 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo"><span>Context</span>Patterns</a>
+    <ul class="nav-links">
+      <li><a href="#">Patterns</a></li>
+      <li><a href="#">Tools</a></li>
+      <li><a href="#">Writing</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-label">The Discipline of Designing What AI Knows</div>
+    <h1>Context Patterns</h1>
+    <p>Patterns, principles, and tools for context engineering. Because what you put in the window matters more than the model behind it.</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">+10.6%</div>
+      <div class="stat-label">Agent benchmark improvement<br>with better context (Stanford/ACE)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">65%</div>
+      <div class="stat-label">Fewer errors with<br>architectural context (Microsoft)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">11/12</div>
+      <div class="stat-label">Models drop below 50%<br>at 32k tokens (NoLiMa)</div>
+    </div>
+  </div>
+
+  <section class="blockquote-section">
+    <div class="big-quote">&ldquo;</div>
+    <blockquote>
+      <p>Context engineering is the delicate art and science of filling the context window with just the right information for the next step.</p>
+      <footer><cite>Andrej Karpathy</cite></footer>
+    </blockquote>
+  </section>
+
+  <main class="content">
+
+    <hr class="section-rule">
+    <div class="section-header">The Problem</div>
+
+    <div class="pattern-entry" style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 32px 0;">
+      <h3 class="pattern-name">Context Rot</h3>
+      <p class="pattern-desc">Model quality degrades as context gets longer, even well within the window limit. 11 of 12 models drop below 50% at 32k tokens. GPT-5 fails on reasoning tasks long before hitting its 272k limit. The window size on the box is not the window size you get.</p>
+      <div class="pattern-source"><a href="#">Hong et al. (2025)</a>, <a href="#">NoLiMa Benchmark</a></div>
+    </div>
+
+    <hr class="section-rule">
+    <div class="section-header">Patterns</div>
+
+    <div class="patterns-list">
+      <div class="pattern-entry">
+        <h3 class="pattern-name">The Pyramid</h3>
+        <p class="pattern-desc">Start with general background, progressively add specific details. Give the model altitude before asking it to land. Mirrors how experts brief each other: context first, task second.</p>
+        <div class="pattern-source"><a href="#">Anthropic: Effective Context Engineering for AI Agents</a></div>
+      </div>
+      <div class="pattern-entry">
+        <h3 class="pattern-name">Select, Don't Dump</h3>
+        <p class="pattern-desc">The smallest set of high-signal tokens that maximize the desired outcome. More context isn't better context. Surgical selection beats comprehensive inclusion. Treat every token as a cost, not a freebie.</p>
+        <div class="pattern-source"><a href="#">NoLiMa Benchmark</a>, <a href="#">Chroma Research</a></div>
+      </div>
+      <div class="pattern-entry">
+        <h3 class="pattern-name">Isolate</h3>
+        <p class="pattern-desc">Give sub-agents their own focused contexts instead of sharing one massive window. Anthropic's multi-agent system uses 15x more tokens total but gets better results, because each agent sees only what it needs.</p>
+        <div class="pattern-source"><a href="#">Anthropic: Multi-Agent Research System</a></div>
+      </div>
+      <div class="pattern-entry">
+        <h3 class="pattern-name">Compress &amp; Restart</h3>
+        <p class="pattern-desc">When conversations grow long, summarize what matters and start fresh. Context quality degrades past 85% window capacity. Compaction beats continuation. Treat context like a cache, not a log.</p>
+        <div class="pattern-source"><a href="#">LangChain: Context Engineering for Agents</a></div>
+      </div>
+      <div class="pattern-entry">
+        <h3 class="pattern-name">Write Outside the Window</h3>
+        <p class="pattern-desc">Persist important context to external storage: scratchpads, memory files, knowledge bases. The context window is working memory, not long-term memory. What matters should survive beyond a single session.</p>
+        <div class="pattern-source"><a href="#">LangChain</a>, <a href="#">Letta (MemGPT)</a></div>
+      </div>
+      <div class="pattern-entry">
+        <h3 class="pattern-name">Progressive Disclosure</h3>
+        <p class="pattern-desc">Don't pre-load everything. Maintain lightweight identifiers and load full data on demand at runtime. Let the model discover what it needs through exploration, like a developer navigating a codebase.</p>
+        <div class="pattern-source"><a href="#">Anthropic: Contextual Retrieval</a></div>
+      </div>
+      <div class="pattern-entry">
+        <h3 class="pattern-name">Recursive Delegation</h3>
+        <p class="pattern-desc">Give the agent a code environment to programmatically manipulate its own context, and let it spawn child agents with controlled sub-contexts. Context becomes a tree, not a monolith.</p>
+        <div class="pattern-source"><a href="#">Zhang et al. (2025): Recursive Language Models</a></div>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+    <div class="section-header">Tools</div>
+
+    <div class="tool-card">
+      <h3>Context Lens</h3>
+      <p>See what your AI actually sees. A framework-agnostic proxy that intercepts LLM API calls and visualizes context window composition in real time. Works with Claude, GPT, and any tool that calls an LLM API.</p>
+      <div class="pattern-source"><a href="#">github.com/larsderidder/context-lens</a></div>
+    </div>
+
+    <hr class="section-rule">
+    <div class="section-header">Writing</div>
+
+    <div class="blog-preview">
+      <article class="blog-card">
+        <div class="blog-date">February 2026</div>
+        <h3>Why Context Windows Are a Lie</h3>
+        <p>Every model advertises a window size. Almost none deliver on it. Here's what actually happens past 32k tokens, and what to do about it.</p>
+        <a href="#" class="read-more">Read article &rarr;</a>
+      </article>
+      <article class="blog-card">
+        <div class="blog-date">January 2026</div>
+        <h3>The Case for Multi-Agent Context</h3>
+        <p>Splitting work across focused agents uses more tokens but produces better results. A deep dive into why isolation beats sharing.</p>
+        <a href="#" class="read-more">Read article &rarr;</a>
+      </article>
+    </div>
+
+  </main>
+
+  <section class="cta-section">
+    <h2>Stay current</h2>
+    <p>New patterns and research, delivered when they're ready. No spam.</p>
+    <form class="email-form" onsubmit="event.preventDefault()">
+      <input type="email" placeholder="you@example.com" aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+    <div class="social-links">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">X / Twitter</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span>Context</span>Patterns.com &middot; Lars de Ridder
+  </footer>
+
+</body>
+</html>
