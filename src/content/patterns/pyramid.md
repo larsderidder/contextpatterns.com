@@ -6,7 +6,7 @@ order: 1
 category: pattern
 sources:
   - label: "Anthropic: Effective Context Engineering for AI Agents"
-    url: "https://www.anthropic.com/engineering/context-engineering"
+    url: "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
 related:
   - select
   - progressive-disclosure

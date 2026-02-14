@@ -1,6 +1,6 @@
 ---
 title: Context Rot
-summary: Model quality degrades as context gets longer, even well within the window limit. 11 of 13 models drop below 50% at 32k tokens. The window size on the box is not the window size you get. Every pattern below exists because of this.
+summary: Model quality degrades as context gets longer, even well within the window limit. 11 of 13 models drop to half their baseline at 32k tokens. The window size on the box is not the window size you get. Every pattern below exists because of this.
 dot: gold
 order: 0
 category: problem
@@ -20,7 +20,7 @@ Every major model advertises a context window measured in hundreds of thousands 
 
 It won't.
 
-The NoLiMa benchmark tested 13 leading models on tasks requiring them to find and use information placed at various positions within long contexts. At 32k tokens, 11 of 13 models dropped below 50% accuracy. Not at 128k. Not at the edge of their window. At 32k, a fraction of what they claim to support.
+The NoLiMa benchmark tested 13 leading models on tasks requiring them to find and use information placed at various positions within long contexts. At 32k tokens, 11 of 13 models dropped to half their short-context performance. Not at 128k. Not at the edge of their window. At 32k, a fraction of what they claim to support.
 
 The degradation isn't a cliff, it's a slope that starts early and steepens as context grows.
 
