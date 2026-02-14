@@ -4,135 +4,367 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Context Patterns — The discipline of designing what AI knows</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%233b82f6'/><text x='16' y='22' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='18' fill='white'>C</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23B8860B'/><text x='16' y='22' text-anchor='middle' font-family='serif' font-weight='700' font-size='18' fill='white'>C</text></svg>">
   <meta name="description" content="Patterns, principles, and tools for context engineering. The emerging discipline of designing what information AI systems work with.">
   <meta property="og:title" content="Context Patterns — The discipline of designing what AI knows">
   <meta property="og:description" content="Patterns, principles, and tools for context engineering. The emerging discipline of designing what information AI systems work with.">
+  <meta property="og:image" content="https://contextpatterns.com/og-image.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://contextpatterns.com">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Context Patterns">
   <meta name="twitter:description" content="Patterns, principles, and tools for context engineering.">
   <link rel="canonical" href="https://contextpatterns.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0a;
-      --surface: #141414;
-      --border: #262626;
-      --text: #e5e5e5;
-      --muted: #a3a3a3;
-      --accent: #3b82f6;
-      --accent-dim: #1e3a5f;
+      --bg: #FAFAF7;
+      --surface: #FFFFFF;
+      --border: #E5E1DA;
+      --border-strong: #C8C3B8;
+      --text: #1A1A1A;
+      --text-secondary: #555550;
+      --accent: #B8860B;
+      --accent-hover: #9A7009;
+      --accent-light: rgba(184, 134, 11, 0.08);
+      --sage: #6B7C6E;
+      --sage-light: rgba(107, 124, 110, 0.08);
+      --blue: #4A7C9B;
+      --rule: #D4CFC5;
+      --shadow-hover: 0 6px 24px rgba(26, 26, 26, 0.08);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
+      font-size: 16px;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 24px;
+    /* ── Nav ─────────────────────────────────────── */
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      background: rgba(250, 250, 247, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
     }
 
-    header {
-      padding: 80px 0 60px;
-      text-align: center;
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
+    .nav-logo span { color: var(--accent); }
 
-    .subtitle {
-      font-size: 1.2rem;
-      color: var(--muted);
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .stat-bar {
+    .nav-links {
       display: flex;
       gap: 32px;
-      justify-content: center;
-      margin-top: 40px;
-      flex-wrap: wrap;
+      list-style: none;
     }
 
-    .stat {
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ─────────────────────────────────────── */
+
+    header {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 100px 48px 56px;
       text-align: center;
     }
 
-    .stat-number {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .stat-label {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    section {
-      padding: 48px 0;
-    }
-
-    h2 {
-      font-size: 1.1rem;
+    .hero-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
+      color: var(--accent);
       margin-bottom: 24px;
     }
 
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 3.5rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    /* ── Stats ─────────────────────────────────────── */
+
+    .stat-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-top: 40px;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .stat {
+      flex: 1;
+      max-width: 220px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .stat + .stat {
+      border-left: 1px solid var(--rule);
+    }
+
+    .stat-number {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.2rem;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ── Quote ─────────────────────────────────────── */
+
+    .quote-section {
+      max-width: 680px;
+      margin: 48px auto 64px;
+      padding: 0 48px;
+      position: relative;
+    }
+
+    .big-quote {
+      font-family: 'Instrument Serif', serif;
+      font-size: 5rem;
+      color: var(--accent);
+      opacity: 0.3;
+      position: absolute;
+      top: -20px;
+      left: 24px;
+      line-height: 1;
+    }
+
+    .quote p {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .quote .author {
+      margin-top: 16px;
+      font-style: normal;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: left;
+    }
+
+    .quote .author cite { font-style: normal; }
+
+    /* ── Content sections ─────────────────────────── */
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .section-rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 64px 0 48px;
+    }
+
+    h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--sage);
+      display: inline-block;
+    }
+
+    /* ── Pattern cards ────────────────────────────── */
+
     .patterns {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .patterns-pair {
       display: grid;
-      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
 
     .pattern {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 24px;
+      padding: 28px 28px 24px;
+      transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
     }
 
+    .pattern:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-1px);
+    }
+
+    .pattern-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .pattern-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot-gold { background: var(--accent); }
+    .dot-blue { background: var(--blue); }
+
     .pattern h3 {
-      font-size: 1.15rem;
-      margin-bottom: 8px;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
       color: var(--text);
+      line-height: 1.3;
     }
 
     .pattern p {
-      color: var(--muted);
       font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
     }
 
-    .pattern .source {
-      margin-top: 12px;
+    .source {
+      margin-top: 10px;
       font-size: 0.8rem;
-      color: var(--accent);
     }
+
+    .source a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .source a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── Tool card ─────────────────────────────────── */
+
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+    }
+
+    .tool-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-1px);
+    }
+
+    .tool-tag {
+      display: inline-block;
+      background: var(--sage-light);
+      color: var(--sage);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+
+    .tool-card h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .tool-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── CTA / Newsletter ─────────────────────────── */
 
     .cta-section {
+      max-width: 520px;
+      margin: 80px auto 0;
+      padding: 0 48px;
       text-align: center;
-      padding: 60px 0;
-      border-top: 1px solid var(--border);
     }
 
-    .cta-section p {
-      color: var(--muted);
-      margin-bottom: 24px;
+    .cta-heading {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+
+    .cta-section p:not(.cta-heading) {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .tally-embed {
+      margin: 0 auto 24px;
+      max-width: 400px;
     }
 
     .links {
@@ -147,8 +379,8 @@
       padding: 10px 24px;
       border-radius: 6px;
       text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 0.9rem;
+      font-weight: 600;
       transition: all 0.2s;
     }
 
@@ -158,166 +390,225 @@
     }
 
     .links a.primary:hover {
-      background: #2563eb;
+      background: var(--accent-hover);
     }
 
     .links a.secondary {
       border: 1px solid var(--border);
-      color: var(--text);
+      color: var(--text-secondary);
     }
 
     .links a.secondary:hover {
-      border-color: var(--muted);
+      border-color: var(--border-strong);
+      color: var(--text);
     }
 
-    .quote {
-      border-left: 3px solid var(--accent-dim);
-      padding: 16px 24px;
-      margin: 32px 0;
-      background: var(--surface);
-      border-radius: 0 8px 8px 0;
-    }
+    /* ── Footer ────────────────────────────────────── */
 
-    .quote p {
-      font-style: italic;
-      color: var(--muted);
-    }
-
-    .quote .author {
-      margin-top: 8px;
-      font-style: normal;
-      font-size: 0.85rem;
-      color: var(--accent);
-    }
-
-    footer {
+    footer.site-footer {
+      margin-top: 80px;
+      padding: 32px 48px;
+      border-top: 1px solid var(--rule);
       text-align: center;
-      padding: 40px 0;
-      color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
     }
+
+    footer.site-footer .accent { color: var(--accent); }
+
+    /* ── Responsive ────────────────────────────────── */
 
     @media (max-width: 600px) {
-      header { padding: 48px 0 40px; }
-      h1 { font-size: 1.8rem; }
-      .stat-bar { gap: 24px; }
-      .stat-number { font-size: 1.4rem; }
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      .nav-links a { font-size: 0.8rem; }
+      header { padding: 64px 24px 56px; }
+      h1 { font-size: 2.4rem; }
+      .stat-bar { flex-direction: column; }
+      .stat + .stat { border-left: none; border-top: 1px solid var(--rule); }
+      .content { padding: 0 24px; }
+      .patterns-pair { grid-template-columns: 1fr; }
+      .quote-section { padding: 0 24px; }
+      .big-quote { left: 8px; }
+      .cta-section { padding: 0 24px; }
+    }
+
+    /* ── Print ─────────────────────────────────────── */
+
+    @media print {
+      nav { display: none; }
+      body { background: white; color: black; }
+      .pattern, .tool-card { border-color: #ccc; background: #f9f9f9; }
+      .pattern h3, .tool-card h3, h1 { color: black; }
+      .pattern p, .tool-card p, .stat-label, .quote p, footer.site-footer { color: #333; }
+      .stat-number { color: black; }
+      .source a, .quote .author { color: #8B6914; }
+      .links a.primary { background: #8B6914; }
+      .links a.secondary { border-color: #ccc; color: black; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; transform: none !important; }
     }
   </style>
   <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-  <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Context Patterns</h1>
-      <p class="subtitle">The emerging discipline of designing what information AI systems work with - and how it's structured.</p>
+  <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 
-      <div class="stat-bar">
-        <div class="stat">
-          <div class="stat-number">+10.6%</div>
-          <div class="stat-label">Agent benchmark improvement<br>with better context (Stanford/ACE)</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">65%</div>
-          <div class="stat-label">Fewer errors with<br>architectural context (Microsoft)</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">11/12</div>
-          <div class="stat-label">Models drop below 50%<br>at 32k tokens (NoLiMa)</div>
-        </div>
+  <nav>
+    <a href="/" class="nav-logo"><span>Context</span>Patterns</a>
+    <ul class="nav-links">
+      <li><a href="#patterns">Patterns</a></li>
+      <li><a href="#tools">Tools</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <div class="hero-label">The Discipline of Designing What AI Knows</div>
+    <h1>Context Patterns</h1>
+
+    <div class="stat-bar">
+      <div class="stat">
+        <div class="stat-number">+10.6%</div>
+        <div class="stat-label">Agent benchmark improvement<br>with better context (Stanford/ACE)</div>
       </div>
-    </header>
+      <div class="stat">
+        <div class="stat-number">65%</div>
+        <div class="stat-label">Fewer errors with<br>architectural context (Microsoft)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">92%</div>
+        <div class="stat-label">Of models drop below 50%<br>at 32k tokens (NoLiMa)</div>
+      </div>
+    </div>
+  </header>
 
-    <div class="quote">
+  <section class="quote-section">
+    <div class="big-quote">&ldquo;</div>
+    <blockquote class="quote">
       <p>"Context engineering is the delicate art and science of filling the context window with just the right information for the next step."</p>
-      <div class="author">Andrej Karpathy</div>
+      <footer class="author"><cite>Andrej Karpathy</cite></footer>
+    </blockquote>
+  </section>
+
+  <main class="content">
+
+    <hr class="section-rule">
+    <h2>The Problem</h2>
+
+    <div class="patterns">
+      <div class="pattern">
+        <div class="pattern-header">
+          <div class="pattern-dot dot-gold"></div>
+          <h3>Context Rot</h3>
+        </div>
+        <p>Model quality degrades as context gets longer, even well within the window limit. 11 of 12 models drop below 50% at 32k tokens. GPT-5 fails on reasoning tasks long before hitting its 272k limit. The window size on the box is not the window size you get. Every pattern below exists because of this.</p>
+        <div class="source"><a href="https://arxiv.org/abs/2503.14070" rel="noopener">Hong et al. (2025)</a>, <a href="https://arxiv.org/abs/2502.05167" rel="noopener">NoLiMa Benchmark</a></div>
+      </div>
     </div>
 
-    <section>
-      <h2>The Problem</h2>
-      <div class="patterns">
-        <div class="pattern">
-          <h3>Context Rot</h3>
-          <p>Model quality degrades as context gets longer - even well within the window limit. 11 of 12 models drop below 50% at 32k tokens. GPT-5 fails on reasoning tasks long before hitting its 272k limit. The window size on the box is not the window size you get. Every pattern below exists because of this.</p>
-          <div class="source"><a href="https://arxiv.org/abs/2503.14070" style="color: var(--accent); text-decoration: none;">Hong et al. (2025)</a>, <a href="https://arxiv.org/abs/2502.05167" style="color: var(--accent); text-decoration: none;">NoLiMa Benchmark</a></div>
-        </div>
-      </div>
-    </section>
+    <hr class="section-rule" id="patterns">
+    <h2>Patterns</h2>
 
-    <section>
-      <h2>Patterns</h2>
-      <div class="patterns">
+    <div class="patterns">
+      <div class="patterns-pair">
         <div class="pattern">
-          <h3>The Pyramid</h3>
-          <p>Start with general background, progressively add specific details. Give the model altitude before asking it to land. Mirrors how experts brief each other - context first, task second.</p>
-          <div class="source"><a href="https://www.anthropic.com/engineering/context-engineering" style="color: var(--accent); text-decoration: none;">Anthropic — Effective Context Engineering for AI Agents</a></div>
+          <div class="pattern-header">
+            <div class="pattern-dot dot-gold"></div>
+            <h3>The Pyramid</h3>
+          </div>
+          <p>Start with general background, progressively add specific details. Give the model altitude before asking it to land. Mirrors how experts brief each other: context first, task second.</p>
+          <div class="source"><a href="https://www.anthropic.com/engineering/context-engineering" rel="noopener">Anthropic: Effective Context Engineering for AI Agents</a></div>
         </div>
 
         <div class="pattern">
-          <h3>Select, Don't Dump</h3>
+          <div class="pattern-header">
+            <div class="pattern-dot dot-blue"></div>
+            <h3>Select, Don't Dump</h3>
+          </div>
           <p>The smallest set of high-signal tokens that maximize the desired outcome. More context isn't better context. Surgical selection beats comprehensive inclusion. Treat every token as a cost, not a freebie.</p>
-          <div class="source"><a href="https://arxiv.org/abs/2502.05167" style="color: var(--accent); text-decoration: none;">NoLiMa Benchmark</a>, <a href="https://research.trychroma.com/evaluating-chunking" style="color: var(--accent); text-decoration: none;">Chroma Research</a></div>
+          <div class="source"><a href="https://arxiv.org/abs/2502.05167" rel="noopener">NoLiMa Benchmark</a>, <a href="https://research.trychroma.com/evaluating-chunking" rel="noopener">Chroma Research</a></div>
         </div>
+      </div>
 
-        <div class="pattern">
+      <div class="pattern">
+        <div class="pattern-header">
+          <div class="pattern-dot dot-gold"></div>
           <h3>Isolate</h3>
-          <p>Give sub-agents their own focused contexts instead of sharing one massive window. Anthropic's multi-agent system uses 15x more tokens total but gets better results - because each agent sees only what it needs.</p>
-          <div class="source"><a href="https://www.anthropic.com/engineering/built-multi-agent-research-system" style="color: var(--accent); text-decoration: none;">Anthropic — Multi-Agent Research System</a></div>
         </div>
+        <p>Give sub-agents their own focused contexts instead of sharing one massive window. Anthropic's multi-agent system uses 15x more tokens total but gets better results, because each agent sees only what it needs.</p>
+        <div class="source"><a href="https://www.anthropic.com/engineering/built-multi-agent-research-system" rel="noopener">Anthropic: Multi-Agent Research System</a></div>
+      </div>
 
+      <div class="patterns-pair">
         <div class="pattern">
-          <h3>Compress & Restart</h3>
+          <div class="pattern-header">
+            <div class="pattern-dot dot-blue"></div>
+            <h3>Compress &amp; Restart</h3>
+          </div>
           <p>When conversations grow long, summarize what matters and start fresh. Context quality degrades past 85% window capacity. Compaction beats continuation. Treat context like a cache, not a log.</p>
-          <div class="source"><a href="https://blog.langchain.dev/context-engineering-for-agents/" style="color: var(--accent); text-decoration: none;">LangChain — Context Engineering for Agents</a></div>
+          <div class="source"><a href="https://blog.langchain.dev/context-engineering-for-agents/" rel="noopener">LangChain: Context Engineering for Agents</a></div>
         </div>
 
         <div class="pattern">
-          <h3>Write Outside the Window</h3>
-          <p>Persist important context to external storage - scratchpads, memory files, knowledge bases. The context window is working memory, not long-term memory. What matters should survive beyond a single session.</p>
-          <div class="source"><a href="https://blog.langchain.dev/context-engineering-for-agents/" style="color: var(--accent); text-decoration: none;">LangChain</a>, <a href="https://www.letta.com/blog/memgpt" style="color: var(--accent); text-decoration: none;">Letta (MemGPT)</a></div>
+          <div class="pattern-header">
+            <div class="pattern-dot dot-gold"></div>
+            <h3>Write Outside the Window</h3>
+          </div>
+          <p>Persist important context to external storage: scratchpads, memory files, knowledge bases. The context window is working memory, not long-term memory. What matters should survive beyond a single session.</p>
+          <div class="source"><a href="https://blog.langchain.dev/context-engineering-for-agents/" rel="noopener">LangChain</a>, <a href="https://www.letta.com/blog/memgpt" rel="noopener">Letta (MemGPT)</a></div>
         </div>
+      </div>
 
-        <div class="pattern">
+      <div class="pattern">
+        <div class="pattern-header">
+          <div class="pattern-dot dot-blue"></div>
           <h3>Progressive Disclosure</h3>
-          <p>Don't pre-load everything. Maintain lightweight identifiers and load full data on demand at runtime. Let the model discover what it needs through exploration, like a developer navigating a codebase.</p>
-          <div class="source"><a href="https://www.anthropic.com/engineering/contextual-retrieval" style="color: var(--accent); text-decoration: none;">Anthropic — Contextual Retrieval</a></div>
         </div>
+        <p>Don't pre-load everything. Maintain lightweight identifiers and load full data on demand at runtime. Let the model discover what it needs through exploration, like a developer navigating a codebase.</p>
+        <div class="source"><a href="https://www.anthropic.com/engineering/contextual-retrieval" rel="noopener">Anthropic: Contextual Retrieval</a></div>
+      </div>
 
-        <div class="pattern">
+      <div class="pattern">
+        <div class="pattern-header">
+          <div class="pattern-dot dot-gold"></div>
           <h3>Recursive Delegation</h3>
-          <p>Give the agent a code environment to programmatically manipulate its own context, and let it spawn child agents with controlled sub-contexts. Instead of stuffing 10M tokens into one window, the parent splits, delegates, and aggregates. Context becomes a tree, not a monolith.</p>
-          <div class="source"><a href="https://arxiv.org/abs/2512.24601" style="color: var(--accent); text-decoration: none;">Zhang et al. (2025) — Recursive Language Models</a></div>
         </div>
+        <p>Give the agent a code environment to programmatically manipulate its own context, and let it spawn child agents with controlled sub-contexts. Instead of stuffing 10M tokens into one window, the parent splits, delegates, and aggregates. Context becomes a tree, not a monolith.</p>
+        <div class="source"><a href="https://arxiv.org/abs/2512.24601" rel="noopener">Zhang et al. (2025): Recursive Language Models</a></div>
       </div>
-    </section>
+    </div>
 
-    <section>
-      <h2>Tools</h2>
-      <div class="patterns">
-        <div class="pattern">
-          <h3>Context Lens</h3>
-          <p>See what your AI actually sees. A framework-agnostic proxy that intercepts LLM API calls and visualizes context window composition in real time. Works with Claude, GPT, and any tool that calls an LLM API.</p>
-          <div class="source"><a href="https://github.com/larsderidder/context-lens" style="color: var(--accent); text-decoration: none;">github.com/larsderidder/context-lens</a></div>
-        </div>
-      </div>
-    </section>
+    <hr class="section-rule" id="tools">
+    <h2>Tools</h2>
 
-    <section class="cta-section">
-      <div style="margin: 24px auto; max-width: 400px;">
-        <iframe data-tally-src="https://tally.so/embed/yP9lj4?alignLeft=1&hideDescription=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="120" frameborder="0" marginheight="0" marginwidth="0" title="Stay in the loop"></iframe>
-        <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s)}</script>
-      </div>
-      <div class="links">
-        <a href="https://github.com/larsderidder/context-lens" class="primary">Context Lens on GitHub</a>
-        <a href="https://linkedin.com/in/larsderidder" class="secondary">LinkedIn</a>
-        <a href="https://x.com/theredbeard_io" class="secondary">X / Twitter</a>
-      </div>
-    </section>
+    <div class="tool-card">
+      <div class="tool-tag">Open Source</div>
+      <h3>Context Lens</h3>
+      <p>See what your AI actually sees. A framework-agnostic proxy that intercepts LLM API calls and visualizes context window composition in real time. Works with Claude, GPT, and any tool that calls an LLM API.</p>
+      <div class="source"><a href="https://github.com/larsderidder/context-lens" rel="noopener">github.com/larsderidder/context-lens</a></div>
+    </div>
 
-    <footer>
-<span style="letter-spacing: 0.04em;"><span style="color: var(--accent);">Context</span>Patterns</span>.com — Lars de Ridder
-    </footer>
-  </div>
+  </main>
+
+  <section class="cta-section">
+    <p class="cta-heading">Stay current</p>
+    <p>New patterns and research, delivered when they're ready. No spam.</p>
+    <div class="tally-embed">
+      <iframe data-tally-src="https://tally.so/embed/yP9lj4?alignLeft=1&hideDescription=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="120" frameborder="0" marginheight="0" marginwidth="0" title="Stay in the loop"></iframe>
+      <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s)}</script>
+    </div>
+    <div class="links">
+      <a href="https://github.com/larsderidder/context-lens" rel="noopener" class="primary">Context Lens on GitHub</a>
+      <a href="https://linkedin.com/in/larsderidder" rel="noopener" class="secondary">LinkedIn</a>
+      <a href="https://x.com/theredbeard_io" rel="noopener" class="secondary">X / Twitter</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span style="letter-spacing: 0.04em;"><span class="accent">Context</span>Patterns</span>.com, Lars de Ridder
+  </footer>
+
 </body>
 </html>
