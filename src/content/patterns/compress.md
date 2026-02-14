@@ -2,7 +2,7 @@
 title: "Compress & Restart"
 summary: When conversations grow long, summarize what matters and start fresh. Context quality degrades well before hitting advertised limits. Compaction beats continuation. Treat context like a cache, not a log.
 dot: blue
-order: 4
+order: 3
 category: pattern
 sources:
   - label: "LangChain: Context Engineering for Agents"

@@ -27,7 +27,7 @@ const patterns = allPatterns.filter(p => p.data.category === 'pattern');
       </div>
       <div class="stat">
         <div class="stat-number">92%</div>
-        <div class="stat-label">Of models drop below 50%<br>at 32k tokens (NoLiMa)</div>
+        <div class="stat-label">of models fall below 50%<br>accuracy at 32k tokens (NoLiMa)</div>
       </div>
     </div>
   </header>
@@ -35,7 +35,7 @@ const patterns = allPatterns.filter(p => p.data.category === 'pattern');
   <section class="quote-section">
     <div class="big-quote">&ldquo;</div>
     <blockquote class="quote">
-      <p>"Context engineering is the delicate art and science of filling the context window with just the right information for the next step."</p>
+      <p>Context engineering is the delicate art and science of filling the context window with just the right information for the next step.</p>
       <footer class="author"><cite>Andrej Karpathy</cite></footer>
     </blockquote>
   </section>
@@ -70,9 +70,9 @@ const patterns = allPatterns.filter(p => p.data.category === 'pattern');
 
     <div class="patterns">
       {patterns.map((p, i) => {
-        const isInPair = (i === 0 || i === 3);
+        const isInPair = (i === 0 || i === 2 || i === 4);
         const pairPartner = isInPair ? patterns[i + 1] : null;
-        const isSecondInPair = (i === 1 || i === 4);
+        const isSecondInPair = (i === 1 || i === 3 || i === 5);
 
         if (isSecondInPair) return null;
 
@@ -139,7 +139,7 @@ const patterns = allPatterns.filter(p => p.data.category === 'pattern');
     <div class="tool-card">
       <div class="tool-tag">Open Source</div>
       <h3>Context Lens</h3>
-      <p>See what your AI actually sees. A framework-agnostic proxy that intercepts LLM API calls and visualizes context window composition in real time. Works with Claude, GPT, and any tool that calls an LLM API.</p>
+      <p>See what your AI actually sees. A framework-agnostic proxy that intercepts LLM API calls and visualizes context window composition. Works with Claude, GPT, and any tool that calls an LLM API.</p>
       <div class="source"><a href="https://github.com/larsderidder/context-lens" rel="noopener">github.com/larsderidder/context-lens</a></div>
     </div>
 
@@ -490,6 +490,7 @@ const patterns = allPatterns.filter(p => p.data.category === 'pattern');
     .hero { padding: 64px 24px 56px; }
     h1 { font-size: 2.4rem; }
     .stat-bar { flex-direction: column; }
+    .stat { max-width: none; }
     .stat + .stat { border-left: none; border-top: 1px solid var(--rule); }
     .content { padding: 0 24px; }
     .patterns-pair { grid-template-columns: 1fr; }

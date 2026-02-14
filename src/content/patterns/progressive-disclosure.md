@@ -2,7 +2,7 @@
 title: Progressive Disclosure
 summary: Don't pre-load everything. Maintain lightweight identifiers and load full data on demand at runtime. Let the model discover what it needs through exploration, like a developer navigating a codebase.
 dot: blue
-order: 6
+order: 7
 category: pattern
 sources:
   - label: "Anthropic: Contextual Retrieval"

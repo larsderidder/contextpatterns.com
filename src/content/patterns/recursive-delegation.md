@@ -2,7 +2,7 @@
 title: Recursive Delegation
 summary: Give the agent a code environment to programmatically manipulate its own context, and let it spawn child agents with controlled sub-contexts. Instead of stuffing 10M tokens into one window, the parent splits, delegates, and aggregates. Context becomes a tree, not a monolith.
 dot: gold
-order: 7
+order: 6
 category: pattern
 sources:
   - label: "Zhang et al. (2025): Recursive Language Models"

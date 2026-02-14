@@ -2,7 +2,7 @@
 title: Isolate
 summary: Give sub-agents their own focused contexts instead of sharing one massive window. Anthropic's multi-agent system uses 15x more tokens total but gets better results, because each agent sees only what it needs.
 dot: gold
-order: 3
+order: 5
 category: pattern
 sources:
   - label: "Anthropic: Multi-Agent Research System"
@@ -33,7 +33,7 @@ Anthropic's multi-agent research system demonstrates this directly. Their system
 2. **Worker agents.** Each receives a focused brief from the orchestrator: the specific subtask, relevant context for that subtask only, and output format requirements.
 3. **Aggregation.** The orchestrator collects worker outputs and synthesizes them. It never sees the full context each worker operated in.
 
-The key insight: the orchestrator's context stays lean because it works with summaries. Each worker's context stays lean because it only sees its slice. Nobody's context gets bloated.
+The key insight: the orchestrator's context stays lean because it works with summaries. Each worker's context stays lean because it only sees its slice. No individual context gets bloated.
 
 ## Example
 

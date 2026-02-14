@@ -2,7 +2,7 @@
 title: Write Outside the Window
 summary: Persist important context to external storage; scratchpads, memory files, knowledge bases. The context window is working memory, not long-term memory. What matters should survive beyond a single session.
 dot: gold
-order: 5
+order: 4
 category: pattern
 sources:
   - label: "LangChain"
@@ -22,7 +22,7 @@ For any non-trivial system, there's information that should persist across sessi
 
 ## How It Works
 
-Give access to external storage and teach reading from and writing to that storage as part of the workflow. The context window becomes working memory (what you're thinking about right now), while external storage becomes long-term memory (what you've learned).
+Give the model access to external storage and make reads and writes part of the workflow. The context window becomes working memory (what you're thinking about right now), while external storage becomes long-term memory (what you've learned).
 
 **Storage patterns:**
 

@@ -27,7 +27,7 @@ Structure your context as a pyramid, from general to specific:
 3. **Specific context.** The files, functions, data, and constraints relevant to this particular task. (The bulk of your context)
 4. **The task itself.** What you want done, with any constraints on approach.
 
-By the time you reach the specific code, there's already understanding of what the system does, how it's organized, and what conventions to follow.
+By the time the model reaches the specific code, it already understands what the system does, how it's organized, and what conventions to follow.
 
 ## Example
 

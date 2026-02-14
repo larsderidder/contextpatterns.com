@@ -30,7 +30,7 @@ import Base from '../layouts/Base.astro';
       <div class="entry">
         <h3><a href="https://arxiv.org/abs/2502.05167" rel="noopener">NoLiMa: Long-Context Benchmark</a></h3>
         <p class="entry-meta">Hsieh et al., Feb 2025</p>
-        <p>The paper that made context rot impossible to ignore. 11 of 12 models dropped below 50% accuracy at just 32k tokens. Not at the edge of their window. At a fraction of it. This single finding undermines the "bigger window, better results" assumption that most context strategies rely on.</p>
+        <p>The benchmark that put hard numbers on context rot. 11 of 12 models dropped below 50% accuracy at just 32k tokens. Not at the edge of their window. At a fraction of it. Undermines the "bigger window, better results" assumption that most context strategies rely on.</p>
       </div>
 
       <div class="entry">
@@ -88,7 +88,7 @@ import Base from '../layouts/Base.astro';
       <div class="entry">
         <h3><a href="https://www.anthropic.com/engineering/context-engineering" rel="noopener">Effective Context Engineering for AI Agents</a></h3>
         <p class="entry-meta">Anthropic</p>
-        <p>The foundational reference. Introduces the pyramid approach, the principle of finding the smallest set of high-signal tokens, and the concept of "right altitude" for instructions. Most of the patterns on this site trace back to principles articulated here.</p>
+        <p>Introduces the pyramid approach, the principle of finding the smallest set of high-signal tokens, and the concept of "right altitude" for instructions. Most of the patterns on this site trace back to principles articulated here.</p>
       </div>
 
       <div class="entry">
@@ -146,7 +146,7 @@ import Base from '../layouts/Base.astro';
       <div class="entry">
         <h3><a href="https://oso.sh/blog/how-to-build-real-time-context-engine-ai-agents-apache-kafka/" rel="noopener">Building a Real-Time Context Engine for AI Agents</a></h3>
         <p class="entry-meta">OSO Engineering, Feb 2026</p>
-        <p>Technical deep dive triggered by IBM's $11B Confluent acquisition. Argues that RAG is document retrieval, but context is operational state. Proposes an event-driven architecture (Kafka + Snowplow) for real-time context that changes minute-by-minute. Important for understanding where static context patterns break down.</p>
+        <p>Technical breakdown triggered by IBM's $11B Confluent acquisition. Argues that RAG is document retrieval, but context is operational state. Proposes an event-driven architecture (Kafka + Snowplow) for real-time context that changes minute-by-minute. Useful for understanding where static context patterns break down.</p>
       </div>
     </section>
 
@@ -162,7 +162,7 @@ import Base from '../layouts/Base.astro';
       <div class="entry">
         <h3><a href="https://modelcontextprotocol.io" rel="noopener">Model Context Protocol (MCP)</a></h3>
         <p class="entry-meta">Anthropic</p>
-        <p>Standardized protocol for context retrieval. "USB-C for AI." Adopted by Block, OpenAI, Microsoft. Enables dynamic, information-rich environments rather than static prompts. The infrastructure layer that makes Progressive Disclosure practical at scale.</p>
+        <p>Standardized protocol for context retrieval. "USB-C for AI." Adopted by Block, OpenAI, Microsoft. Enables dynamic, information-rich environments rather than static prompts. The protocol layer that makes Progressive Disclosure practical at scale.</p>
       </div>
 
       <div class="entry">
@@ -182,12 +182,12 @@ import Base from '../layouts/Base.astro';
 
       <div class="entry">
         <h3>Tobi Lutke, Shopify CEO</h3>
-        <p>"Context engineering describes the core skill better" than prompt engineering. "The art of providing all the context for the task to be plausibly solvable by the LLM." A signal that this framing has reached the executive level.</p>
+        <p>"Context engineering describes the core skill better" than prompt engineering. "The art of providing all the context for the task to be plausibly solvable by the LLM."</p>
       </div>
 
       <div class="entry">
         <h3>Cognition AI</h3>
-        <p>"Context engineering is effectively the #1 job of engineers building AI agents." Warns against careless multi-agent design: context hand-off between agents needs careful engineering, not just spawning sub-tasks.</p>
+        <p>"Context engineering is effectively the #1 job of engineers building AI agents." Warns that context hand-off between agents needs careful engineering, not just spawning sub-tasks.</p>
       </div>
 
       <div class="entry">
@@ -197,7 +197,7 @@ import Base from '../layouts/Base.astro';
 
       <div class="entry">
         <h3>Industry consensus, 2026</h3>
-        <p>Production AI failures are "context failures, not model failures." The shift from "clever prompts" to "systematic context management" is complete. The model is not the product; the orchestration is.</p>
+        <p>The recurring theme across practitioners: production AI failures are "context failures, not model failures." The model is not the product; the orchestration is.</p>
       </div>
     </section>
   </article>
